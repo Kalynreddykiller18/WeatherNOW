@@ -7,7 +7,7 @@ const App = () => {
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState("");
 
-  const API_KEY = "fa4cec01f41c4b528de80006242511";
+  const API_KEY = process.env.WEATHER_API_KEY;
 
   const fetchWeather = async () => {
     if (!location) {
