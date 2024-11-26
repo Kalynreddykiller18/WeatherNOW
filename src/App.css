@@ -9,6 +9,19 @@
   color: wheat;
 }
 
+.app img {
+  width: 40px;
+  padding-bottom: 10px;
+  padding-right: 10px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
 .search {
   margin: 20px 0;
 }
@@ -24,6 +37,9 @@
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
+  color: white;
+  background-color: #7c61b6;
+  border: 0;
 }
 
 .error {
@@ -39,7 +55,7 @@
   border-radius: 8px;
   display: inline-block;
   background-color: #7c61b6;
-  color: rgb(189, 195, 196);
+  color: rgb(255, 255, 255);
   box-shadow: 0 0 20px rgba(185, 158, 77, 0.3);
 }
 
@@ -49,4 +65,10 @@
 
 .weather img {
   margin-top: 10px;
+}
+
+@media (max-width: 420px) {
+  .search button {
+    margin-top: 10px;
+  }
 }

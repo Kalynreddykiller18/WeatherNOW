@@ -6,9 +6,9 @@ const App = () => {
   const [location, setLocation] = useState("");
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
-  console.log(API_KEY);
 
   const fetchWeather = async () => {
     if (!location) {
@@ -17,6 +17,8 @@ const App = () => {
     }
 
     try {
+      setLoading(true);
+      console.log(loading, weather);
       const response = await axios.get(
         `https://api.weatherapi.com/v1/current.json`,
         {
@@ -28,6 +30,7 @@ const App = () => {
       );
       setWeather(response.data);
       setError("");
+      setLoading(false);
     } catch (err) {
       setError("Unable to fetch weather data. Check your location!");
       setWeather(null);
@@ -36,7 +39,10 @@ const App = () => {
 
   return (
     <div className="app">
-      <h1>Weather Now</h1>
+      <div className="title">
+        <img src="icons.png" alt="icon not loaded" />
+        <h1>Weather Now</h1>
+      </div>
 
       <div className="search">
         <input
@@ -50,22 +56,24 @@ const App = () => {
 
       {error && <p className="error">{error}</p>}
 
-      {weather && (
-        <div className="weather">
-          <h2>
-            {console.log(weather)}
-            {weather.location.name}, {weather.location.region},
-            {weather.location.country}
-          </h2>
-          <p>{weather.current.condition.text}</p>
-          <p>Temperature: {weather.current.temp_c}°C</p>
-          <p>Humidity: {weather.current.humidity}%</p>
-          <img
-            src={weather.current.condition.icon}
-            alt={weather.current.condition.text}
-          />
-        </div>
-      )}
+      {weather &&
+        (!loading ? (
+          <div className="weather">
+            <h2>
+              {weather.location.name}, {weather.location.region},
+              {weather.location.country}
+            </h2>
+            <p>{weather.current.condition.text}</p>
+            <p>Temperature: {weather.current.temp_c}°C</p>
+            <p>Humidity: {weather.current.humidity}%</p>
+            <img
+              src={weather.current.condition.icon}
+              alt={weather.current.condition.text}
+            />
+          </div>
+        ) : (
+          <h3>Loading...</h3>
+        ))}
     </div>
   );
 };
